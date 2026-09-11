@@ -14,6 +14,7 @@ const links = [
 export function MarketingMenu() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -26,12 +27,41 @@ export function MarketingMenu() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 32)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   if (pathname !== '/') return null
 
+  const compact = scrolled
+
   return <>
-    <button type="button" aria-label={open ? 'Close VYRAL menu' : 'Open VYRAL menu'} aria-expanded={open} onClick={() => setOpen(value => !value)} className={`marketing-menu-trigger ${open ? 'is-open' : ''}`} style={{ right: 20, top: 18 }}>
-      <span className="marketing-menu-line marketing-menu-line-top" />
-      <span className="marketing-menu-line marketing-menu-line-bottom" />
+    <button
+      type="button"
+      aria-label={open ? 'Close VYRAL menu' : 'Open VYRAL menu'}
+      aria-expanded={open}
+      onClick={() => setOpen(value => !value)}
+      className={`marketing-menu-trigger ${open ? 'is-open' : ''} ${compact ? 'is-compact' : ''}`}
+      data-scrolled={compact}
+      style={{
+        right: compact ? 14 : 20,
+        top: compact ? 10 : 18,
+        width: compact ? 42 : 52,
+        height: compact ? 38 : 48,
+        borderRadius: compact ? 999 : 14,
+        background: compact ? 'rgba(255,255,255,.84)' : 'transparent',
+        border: compact ? '1px solid rgba(0,0,0,.08)' : '1px solid transparent',
+        boxShadow: compact ? '0 8px 30px rgba(0,0,0,.08)' : 'none',
+        backdropFilter: compact ? 'blur(14px)' : 'none',
+        WebkitBackdropFilter: compact ? 'blur(14px)' : 'none',
+        transition: 'width 320ms cubic-bezier(.22,1,.36,1), height 320ms cubic-bezier(.22,1,.36,1), top 320ms cubic-bezier(.22,1,.36,1), right 320ms cubic-bezier(.22,1,.36,1), border-radius 320ms cubic-bezier(.22,1,.36,1), background 320ms ease, box-shadow 320ms ease',
+      }}
+    >
+      <span className="marketing-menu-line marketing-menu-line-top" style={{ width: compact ? 15 : 20 }} />
+      <span className="marketing-menu-line marketing-menu-line-bottom" style={{ width: compact ? 15 : 20 }} />
     </button>
 
     <div className={`marketing-menu-overlay ${open ? 'is-open' : ''}`} aria-hidden={!open}>
