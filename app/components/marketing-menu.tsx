@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { usePathname } from 'next/navigation'
 import { ArrowUpRight, X } from 'lucide-react'
 
@@ -42,12 +42,12 @@ export function MarketingMenu() {
         </div>
 
         <nav className="mt-8 grid max-w-3xl border-t border-black/10">
-          {links.map(([href, label], index) => <a key={href} href={href} onClick={() => setOpen(false)} className="marketing-menu-item" style={{ '--menu-delay': `${index * 55}ms` } as React.CSSProperties}>
+          {links.map(([href, label], index) => <a key={href} href={href} onClick={() => setOpen(false)} className="marketing-menu-item" style={{ '--menu-delay': `${index * 55}ms` } as CSSProperties}>
             <span className="font-mono text-[8px] text-black/25">0{index + 1}</span>
             <span className="text-[13px] font-semibold tracking-[-.01em] sm:text-sm">{label}</span>
             <ArrowUpRight className="ml-auto text-black/25" size={15} />
           </a>)}
-          <Link href="/login" onClick={() => setOpen(false)} className="marketing-menu-item" style={{ '--menu-delay': '165ms' } as React.CSSProperties}>
+          <Link href="/login" onClick={() => setOpen(false)} className="marketing-menu-item" style={{ '--menu-delay': '165ms' } as CSSProperties}>
             <span className="font-mono text-[8px] text-[#ff3d55]">04</span>
             <span className="text-[13px] font-bold sm:text-sm">Start creating</span>
             <ArrowUpRight className="ml-auto text-[#ff3d55]" size={15} />
