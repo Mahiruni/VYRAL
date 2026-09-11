@@ -10,3 +10,6 @@ create unique index if not exists videos_user_tiktok_video_unique
 
 create index if not exists videos_user_published_at_idx
   on public.videos (user_id, published_at desc);
+
+alter table public.tiktok_accounts
+  add column if not exists last_synced_at timestamptz;
