@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{--bg:#07080b;--panel:#0d0f14;--panel2:#12151c;--line:#20242d;--text:#f5f7fb;--muted:#8d95a5;--accent:#ff2d55;--green:#22c55e;--amber:#f59e0b}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif}body{min-height:100vh}button{font:inherit}.glass{background:rgba(13,15,20,.78);backdrop-filter:blur(18px);border:1px solid var(--line)}.grid-bg{background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:36px 36px}.font-display{font-family:'Space Grotesk',sans-serif}.gradient-text{background:linear-gradient(90deg,#fff,#aeb6c5);-webkit-background-clip:text;background-clip:text;color:transparent}.scrollbar::-webkit-scrollbar{width:6px}.scrollbar::-webkit-scrollbar-thumb{background:#282d38;border-radius:99px}
