@@ -4,66 +4,27 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { CalendarDays, Flame, LayoutDashboard, Activity, Users, Sparkles, Settings, Zap, ArrowUpRight } from 'lucide-react'
 
-const items=[['/','Today',LayoutDashboard],['/trends','Opportunities',Flame],['/studio','Create',Sparkles],['/analytics','Analytics',Activity],['/competitors','Intelligence',Users],['/calendar','Calendar',CalendarDays]] as const
+const items=[['/','Home',LayoutDashboard],['/trends','Discover',Flame],['/studio','Create',Sparkles],['/analytics','Results',Activity],['/competitors','Intelligence',Users],['/calendar','Plan',CalendarDays]] as const
 
 export function PageShell({children,title,description}:{children:React.ReactNode;title:string;description:string}){
   const [menuOpen,setMenuOpen]=useState(false)
-
-  useEffect(()=>{
-    document.body.style.overflow=menuOpen?'hidden':''
-    return ()=>{document.body.style.overflow=''}
-  },[menuOpen])
-
-  useEffect(()=>{
-    const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape')setMenuOpen(false)}
-    window.addEventListener('keydown',onKey)
-    return ()=>window.removeEventListener('keydown',onKey)
-  },[])
+  useEffect(()=>{document.body.style.overflow=menuOpen?'hidden':'';return()=>{document.body.style.overflow=''}},[menuOpen])
+  useEffect(()=>{const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape')setMenuOpen(false)};window.addEventListener('keydown',onKey);return()=>window.removeEventListener('keydown',onKey)},[])
 
   return <main className="min-h-screen bg-[#f6f6f2] text-[#111113]">
     <header className="sticky top-0 z-40 border-b border-black/[.08] bg-[#f6f6f2]/90 backdrop-blur-xl">
       <div className="mx-auto flex h-[74px] max-w-[1480px] items-center justify-between px-5 lg:px-9">
-        <Link href="/" onClick={()=>setMenuOpen(false)} className="group flex items-center gap-3 press">
-          <div className="grid h-10 w-10 place-items-center rounded-[13px] bg-[#111113] text-white shadow-[0_8px_24px_rgba(17,17,19,.16)] transition-transform duration-300 group-hover:-rotate-3"><Zap size={17} fill="currentColor"/></div>
-          <div><div className="font-display text-[27px] font-semibold leading-none tracking-tight">VYRAL</div><div className="mt-1 text-[8px] font-bold uppercase tracking-[.22em] text-black/35">Creator growth platform</div></div>
-        </Link>
+        <Link href="/" onClick={()=>setMenuOpen(false)} className="group flex items-center gap-3 press"><div className="grid h-10 w-10 place-items-center rounded-[13px] bg-[#111113] text-white shadow-[0_8px_24px_rgba(17,17,19,.16)] transition-transform duration-300 group-hover:-rotate-3"><Zap size={17} fill="currentColor"/></div><div><div className="font-display text-[27px] font-semibold leading-none tracking-tight">VYRAL</div><div className="mt-1 text-[8px] font-bold uppercase tracking-[.22em] text-black/35">Creator growth platform</div></div></Link>
         <nav className="hidden items-center gap-1 lg:flex">{items.map(([href,label,Icon])=><Link key={href} href={href} className="group flex items-center gap-2 rounded-full px-3.5 py-2 text-[12px] font-semibold text-black/55 transition hover:bg-black/[.05] hover:text-black"><Icon size={14} className="text-black/35 transition group-hover:text-[#ff3d55]"/>{label}</Link>)}</nav>
-        <div className="flex items-center gap-2">
-          <span className="hidden items-center gap-2 rounded-full border border-black/[.08] bg-white px-3 py-2 text-[9px] font-bold uppercase tracking-[.14em] text-black/45 sm:flex"><span className="h-1.5 w-1.5 rounded-full bg-[#19a865] pulse-dot"/> Intelligence live</span>
-          <Link href="/settings" className="hidden h-9 w-9 place-items-center rounded-full border border-black/[.08] bg-white text-black/45 transition hover:bg-black hover:text-white press sm:grid"><Settings size={15}/></Link>
-          <button aria-label={menuOpen?'Close menu':'Open menu'} aria-expanded={menuOpen} onClick={()=>setMenuOpen(v=>!v)} className={`vyral-menu-button ${menuOpen?'is-open':''}`}>
-            <span className="vyral-menu-line vyral-menu-line-top"/><span className="vyral-menu-line vyral-menu-line-bottom"/>
-            <span className="vyral-menu-label">{menuOpen?'Close':'Menu'}</span>
-          </button>
-        </div>
+        <div className="flex items-center gap-2"><span className="hidden items-center gap-2 rounded-full border border-black/[.08] bg-white px-3 py-2 text-[9px] font-bold uppercase tracking-[.14em] text-black/45 sm:flex"><span className="h-1.5 w-1.5 rounded-full bg-[#19a865] pulse-dot"/> Ready</span><Link href="/settings" aria-label="Settings" className="hidden h-9 w-9 place-items-center rounded-full border border-black/[.08] bg-white text-black/45 transition hover:bg-black hover:text-white press sm:grid"><Settings size={15}/></Link><button aria-label={menuOpen?'Close menu':'Open menu'} aria-expanded={menuOpen} onClick={()=>setMenuOpen(v=>!v)} className={`vyral-menu-button ${menuOpen?'is-open':''}`}><span className="vyral-menu-line vyral-menu-line-top"/><span className="vyral-menu-line vyral-menu-line-bottom"/><span className="vyral-menu-label">{menuOpen?'Close':'Menu'}</span></button></div>
       </div>
-      <div className="mx-auto flex max-w-[1480px] items-center gap-1 overflow-x-auto border-t border-black/[.05] px-5 py-2 lg:hidden"><Link href="/" onClick={()=>setMenuOpen(false)} className="rounded-full bg-black px-3 py-1.5 text-[10px] font-bold text-white">Today</Link>{items.slice(1).map(([href,label])=><Link key={href} href={href} onClick={()=>setMenuOpen(false)} className="whitespace-nowrap rounded-full px-3 py-1.5 text-[10px] font-semibold text-black/50 hover:bg-black/[.05]">{label}</Link>)}</div>
+      <div className="mx-auto flex max-w-[1480px] items-center gap-1 overflow-x-auto border-t border-black/[.05] px-5 py-2 lg:hidden"><Link href="/" onClick={()=>setMenuOpen(false)} className="rounded-full bg-black px-3 py-1.5 text-[10px] font-bold text-white">Home</Link>{items.slice(1).map(([href,label])=><Link key={href} href={href} onClick={()=>setMenuOpen(false)} className="whitespace-nowrap rounded-full px-3 py-1.5 text-[10px] font-semibold text-black/50 hover:bg-black/[.05]">{label}</Link>)}</div>
     </header>
 
-    <div className={`vyral-menu-overlay ${menuOpen?'is-open':''}`} aria-hidden={!menuOpen}>
-      <div className="vyral-menu-glow"/>
-      <div className="mx-auto flex min-h-screen max-w-[1480px] flex-col px-6 pb-10 pt-[112px] lg:px-12 lg:pt-[132px]">
-        <div className="mb-10 flex items-end justify-between border-b border-black/[.1] pb-5">
-          <div><p className="font-mono text-[9px] uppercase tracking-[.22em] text-[#ff3d55]">VYRAL / Navigation</p><h2 className="mt-2 font-display text-4xl font-semibold tracking-tight lg:text-6xl">Make your next move.</h2></div>
-          <span className="hidden font-mono text-[9px] uppercase tracking-[.16em] text-black/35 sm:block">ESC to close</span>
-        </div>
-        <nav className="grid gap-1 sm:grid-cols-2">
-          {items.map(([href,label,Icon],i)=><Link key={href} href={href} onClick={()=>setMenuOpen(false)} className="vyral-menu-item" style={{'--menu-delay':`${i*55}ms`} as React.CSSProperties}>
-            <span className="vyral-menu-index">0{i+1}</span><span className="vyral-menu-icon"><Icon size={17}/></span><span className="vyral-menu-title">{label}</span><ArrowUpRight className="vyral-menu-arrow" size={22}/>
-          </Link>)}
-        </nav>
-        <div className="mt-auto flex flex-col gap-5 border-t border-black/[.1] pt-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-md text-sm leading-6 text-black/45">Creator intelligence that turns signals into your next video, before everyone else catches up.</p>
-          <Link href="/studio" onClick={()=>setMenuOpen(false)} className="inline-flex w-fit items-center gap-2 rounded-full bg-[#111113] px-5 py-3 text-[11px] font-bold text-white transition hover:-translate-y-1 hover:bg-[#ff3d55] press">Open Content Studio <ArrowUpRight size={14}/></Link>
-        </div>
-      </div>
-    </div>
+    <div className={`vyral-menu-overlay ${menuOpen?'is-open':''}`} aria-hidden={!menuOpen}><div className="vyral-menu-glow"/><div className="mx-auto flex min-h-screen max-w-[1480px] flex-col px-6 pb-10 pt-[112px] lg:px-12 lg:pt-[132px]"><div className="mb-10 flex items-end justify-between border-b border-black/[.1] pb-5"><div><p className="font-mono text-[9px] uppercase tracking-[.22em] text-[#ff3d55]">VYRAL / Navigation</p><h2 className="mt-2 font-display text-4xl font-semibold tracking-tight lg:text-6xl">Everything you need. Nothing you don't.</h2></div><span className="hidden font-mono text-[9px] uppercase tracking-[.16em] text-black/35 sm:block">ESC to close</span></div><nav className="grid gap-1 sm:grid-cols-2">{items.map(([href,label,Icon],i)=><Link key={href} href={href} onClick={()=>setMenuOpen(false)} className="vyral-menu-item" style={{'--menu-delay':`${i*55}ms`} as React.CSSProperties}><span className="vyral-menu-index">0{i+1}</span><span className="vyral-menu-icon"><Icon size={17}/></span><span className="vyral-menu-title">{label}</span><ArrowUpRight className="vyral-menu-arrow" size={22}/></Link>)}</nav><div className="mt-auto flex flex-col gap-5 border-t border-black/[.1] pt-7 sm:flex-row sm:items-center sm:justify-between"><p className="max-w-md text-sm leading-6 text-black/45">Follow the simple loop: discover an opportunity, create the video, then learn from the result.</p><Link href="/studio" onClick={()=>setMenuOpen(false)} className="inline-flex w-fit items-center gap-2 rounded-full bg-[#111113] px-5 py-3 text-[11px] font-bold text-white transition hover:-translate-y-1 hover:bg-[#ff3d55] press">Create a video <ArrowUpRight size={14}/></Link></div></div></div>
 
-    <section>
-      <div className="mx-auto max-w-[1480px] px-5 pb-4 pt-9 lg:px-9 lg:pt-14"><div className="flex flex-col justify-between gap-5 md:flex-row md:items-end"><div className="max-w-4xl reveal"><p className="mb-3 font-mono text-[9px] font-medium uppercase tracking-[.22em] text-[#ff3d55]">VYRAL / {title.toUpperCase()}</p><h1 className="font-display text-5xl font-semibold leading-[.94] tracking-[-.035em] lg:text-7xl">{title}</h1><p className="mt-4 max-w-2xl text-[14px] leading-7 text-black/50">{description}</p></div><Link href="/studio" className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-[#111113] px-5 py-3 text-[11px] font-bold text-white shadow-[0_12px_30px_rgba(17,17,19,.12)] transition hover:-translate-y-0.5 hover:bg-[#ff3d55] md:self-end">Create with AI <ArrowUpRight size={14}/></Link></div></div>
-      <div className="mx-auto max-w-[1480px] px-5 pb-14 lg:px-9"><div className="stagger">{children}</div></div>
-    </section>
-    <footer className="border-t border-black/[.08] bg-[#111113] text-white"><div className="mx-auto flex max-w-[1480px] flex-col justify-between gap-5 px-5 py-8 text-[10px] text-white/45 lg:flex-row lg:px-9"><span>VYRAL — Your AI growth team for TikTok.</span><span>Demo intelligence active · Built for creators.</span></div></footer>
+    <section><div className="mx-auto max-w-[1480px] px-5 pb-4 pt-9 lg:px-9 lg:pt-14"><div className="flex flex-col justify-between gap-5 md:flex-row md:items-end"><div className="max-w-4xl reveal"><p className="mb-3 font-mono text-[9px] font-medium uppercase tracking-[.22em] text-[#ff3d55]">VYRAL / {title.toUpperCase()}</p><h1 className="font-display text-5xl font-semibold leading-[.94] tracking-[-.035em] lg:text-7xl">{title}</h1><p className="mt-4 max-w-2xl text-[14px] leading-7 text-black/50">{description}</p></div><Link href="/studio" className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-[#111113] px-5 py-3 text-[11px] font-bold text-white shadow-[0_12px_30px_rgba(17,17,19,.12)] transition hover:-translate-y-0.5 hover:bg-[#ff3d55] md:self-end">Create a video <ArrowUpRight size={14}/></Link></div></div><div className="mx-auto max-w-[1480px] px-5 pb-14 lg:px-9"><div className="stagger">{children}</div></div></section>
+    <footer className="border-t border-black/[.08] bg-[#111113] text-white"><div className="mx-auto flex max-w-[1480px] flex-col justify-between gap-5 px-5 py-8 text-[10px] text-white/45 lg:flex-row lg:px-9"><span>VYRAL — Your creator growth system.</span><span>Discover · Create · Learn · Repeat.</span></div></footer>
   </main>
 }
 
