@@ -29,7 +29,7 @@ export function MarketingMenu() {
   if (pathname !== '/') return null
 
   return <>
-    <button type="button" aria-label={open ? 'Close VYRAL menu' : 'Open VYRAL menu'} aria-expanded={open} onClick={() => setOpen(value => !value)} className={`marketing-menu-trigger ${open ? 'is-open' : ''}`}>
+    <button type="button" aria-label={open ? 'Close VYRAL menu' : 'Open VYRAL menu'} aria-expanded={open} onClick={() => setOpen(value => !value)} className={`marketing-menu-trigger ${open ? 'is-open' : ''}`} style={{ right: 20, top: 18 }}>
       <span className="marketing-menu-line marketing-menu-line-top" />
       <span className="marketing-menu-line marketing-menu-line-bottom" />
     </button>
