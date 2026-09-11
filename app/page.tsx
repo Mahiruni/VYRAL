@@ -29,24 +29,35 @@ export default function MarketingHome() {
           <span className="grid h-9 w-9 place-items-center bg-[#111113] text-white"><Zap size={15} fill="currentColor" /></span>
           <span className="font-display text-[25px] font-semibold tracking-[-.05em]">VYRAL</span>
         </Link>
-        <span className="pr-1 text-[9px] font-mono uppercase tracking-[.16em] text-black/25">Menu</span>
+        <span aria-hidden="true" className="h-9 w-9" />
       </nav>
 
-      <section className="mx-auto grid max-w-[1440px] items-center gap-8 px-5 pb-20 pt-8 sm:px-8 lg:grid-cols-[.82fr_1.18fr] lg:px-12 lg:pb-28 lg:pt-12">
-        <div className="relative z-10 max-w-[710px]">
-          <h1 className="font-display text-[clamp(4.7rem,9.3vw,9rem)] font-semibold leading-[.79] tracking-[-.07em]">Make work<br />people <em className="text-[#ff3d55]">notice.</em></h1>
+      <section className="relative mx-auto grid max-w-[1440px] items-center gap-10 overflow-hidden px-5 pb-20 pt-5 sm:px-8 lg:grid-cols-[.84fr_1.16fr] lg:px-12 lg:pb-24 lg:pt-8">
+        <div className="relative z-10 max-w-[720px] lg:pb-10">
+          <div className="h-px w-16 bg-[#111113]/20" />
+          <h1 className="mt-7 font-display text-[clamp(4.5rem,9.2vw,9rem)] font-semibold leading-[.78] tracking-[-.075em]">Make work<br />people <em className="text-[#ff3d55]">notice.</em></h1>
           <p className="mt-9 max-w-xl text-base leading-7 text-black/55 sm:text-lg">VYRAL helps creators find the right idea, make it sharper and understand what deserves another shot.</p>
           <div className="mt-9 flex flex-wrap items-center gap-6">
             <Link href="/login" className="inline-flex items-center gap-2 bg-[#ff3d55] px-6 py-4 text-xs font-bold text-white transition hover:bg-[#111113]">Start creating <ArrowUpRight size={14} /></Link>
             <a href="#how" className="inline-flex items-center gap-2 text-xs font-bold text-black/50 transition hover:text-black"><Play size={13} fill="currentColor" /> See how it works</a>
           </div>
+          <div className="mt-14 flex max-w-md items-center gap-5 border-t border-black/10 pt-5">
+            <span className="font-mono text-[8px] uppercase tracking-[.18em] text-black/30">The loop</span>
+            <div className="h-px flex-1 bg-black/10" />
+            <span className="text-[10px] font-semibold tracking-[.02em] text-black/50">Discover</span>
+            <span className="text-black/20">→</span>
+            <span className="text-[10px] font-semibold tracking-[.02em] text-black/50">Create</span>
+            <span className="text-black/20">→</span>
+            <span className="text-[10px] font-semibold tracking-[.02em] text-black/50">Learn</span>
+          </div>
         </div>
 
-        <div className="relative min-h-[540px] lg:min-h-[680px]">
+        <div className="relative min-h-[520px] lg:min-h-[680px]">
           <div className="absolute right-[7%] top-0 h-[86%] w-[61%] overflow-hidden bg-[#171719]"><img src={people[0].image} alt="Creator" className="h-full w-full object-cover" /><div className="absolute inset-0 bg-black/10" /></div>
           <div className="absolute left-[1%] top-[14%] z-10 w-[29%] overflow-hidden border-[5px] border-[#f4f3ee] bg-white shadow-[0_24px_60px_rgba(17,17,19,.16)]"><img src={people[1].image} alt="Creator" className="aspect-[4/5] w-full object-cover" /><div className="flex items-center justify-between px-3 py-2.5"><span className="text-[9px] font-bold">NOAH</span><span className="font-mono text-[8px] text-black/30">FITNESS</span></div></div>
           <div className="absolute bottom-[4%] right-[1%] z-10 w-[34%] overflow-hidden border-[5px] border-[#f4f3ee] bg-white shadow-[0_24px_60px_rgba(17,17,19,.16)]"><img src={people[2].image} alt="Creator" className="aspect-[4/5] w-full object-cover" /><div className="flex items-center justify-between px-3 py-2.5"><span className="text-[9px] font-bold">MAYA</span><span className="font-mono text-[8px] text-black/30">FOOD</span></div></div>
           <div className="absolute bottom-[13%] left-[14%] z-20 bg-[#111113] px-5 py-4 text-white shadow-[0_18px_45px_rgba(17,17,19,.2)]"><p className="font-mono text-[8px] uppercase tracking-[.15em] text-white/40">Creator signal</p><p className="mt-1 font-display text-3xl">Worth a look.</p></div>
+          <div className="absolute bottom-[1%] left-0 hidden font-mono text-[8px] uppercase tracking-[.18em] text-black/25 lg:block">01 — Start with the idea</div>
         </div>
       </section>
 
