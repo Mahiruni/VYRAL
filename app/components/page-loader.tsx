@@ -7,19 +7,21 @@ const LOGO_PATH = 'M 60.3 0 C 57.9 0 55.7 0.8 54.1 2.5 L 1.8 56.5 C -0.7 59.1 -0
 
 export function PageLoader() {
   const pathname = usePathname()
-  const firstRender = useRef(true)
+  const didMount = useRef(false)
   const [visible, setVisible] = useState(true)
   const [run, setRun] = useState(0)
 
   useEffect(() => {
-    const duration = firstRender.current ? 650 : 500
-    firstRender.current = false
-    const timer = window.setTimeout(() => setVisible(false), duration)
+    const timer = window.setTimeout(() => setVisible(false), 650)
     return () => window.clearTimeout(timer)
   }, [])
 
   useEffect(() => {
-    if (firstRender.current) return
+    if (!didMount.current) {
+      didMount.current = true
+      return
+    }
+
     setRun((value) => value + 1)
     setVisible(true)
     const timer = window.setTimeout(() => setVisible(false), 500)
