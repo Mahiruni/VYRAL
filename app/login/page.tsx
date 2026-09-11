@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { ArrowLeft, ArrowUpRight, Check, KeyRound, Mail, Zap } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, Check, KeyRound, Mail } from 'lucide-react'
 import { signIn, signUp, requestPasswordReset } from '@/app/auth/actions'
+import { VyralLogo } from '@/app/components/vyral-logo'
 
 export default async function Login({ searchParams }: { searchParams: Promise<{ error?: string; message?: string; next?: string }> }) {
   const params = await searchParams
@@ -10,7 +11,7 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
     <main className="min-h-screen bg-[#111113] text-white lg:grid lg:grid-cols-[1.05fr_.95fr]">
       <section className="relative hidden overflow-hidden lg:flex lg:min-h-screen lg:flex-col lg:justify-between p-12 xl:p-16">
         <div className="absolute inset-0 opacity-30" style={{backgroundImage:'linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px)', backgroundSize:'48px 48px'}} />
-        <div className="relative z-10 flex items-center gap-3"><span className="grid h-10 w-10 place-items-center bg-[#ff3d55]"><Zap size={17} fill="white" /></span><span className="font-display text-2xl font-semibold tracking-[-.05em]">VYRAL</span></div>
+        <div className="relative z-10"><VyralLogo dark compact /></div>
         <div className="relative z-10 max-w-2xl"><p className="font-mono text-[9px] uppercase tracking-[.2em] text-white/35">Creator growth, without the noise</p><h1 className="mt-6 font-display text-6xl font-semibold leading-[.84] tracking-[-.06em] xl:text-8xl">Come in.<br /><em className="text-[#ff6b7e]">Make something.</em></h1><p className="mt-7 max-w-lg text-sm leading-6 text-white/45">Your ideas, your work, your results — kept in one private workspace.</p><div className="mt-10 grid max-w-xl gap-3 sm:grid-cols-3">{['Private workspace','Real performance data','Built for creators'].map((item)=><div key={item} className="border border-white/10 bg-white/[.03] p-4"><Check size={14} className="text-[#ff6b7e]"/><p className="mt-8 text-[10px] font-bold text-white/70">{item}</p></div>)}</div></div>
         <div className="relative z-10 flex justify-between text-[9px] text-white/25"><span>DISCOVER · CREATE · LEARN</span><span>© {new Date().getFullYear()} VYRAL</span></div>
       </section>
@@ -18,7 +19,7 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
       <section className="min-h-screen bg-[#f4f3ee] text-[#111113] px-5 py-7 sm:px-8 lg:px-12 lg:py-10">
         <div className="mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-xl flex-col justify-center">
           <Link href="/" className="mb-12 inline-flex w-fit items-center gap-2 text-[10px] font-bold uppercase tracking-[.14em] text-black/40 hover:text-black"><ArrowLeft size={13}/> Back to VYRAL</Link>
-          <div className="mb-8 lg:hidden"><div className="mb-5 grid h-10 w-10 place-items-center bg-[#111113] text-white"><Zap size={17} fill="currentColor" /></div><p className="font-display text-3xl font-semibold tracking-[-.05em]">VYRAL</p></div>
+          <div className="mb-8 lg:hidden"><VyralLogo /></div>
           {params.error && <div role="alert" className="mb-5 border border-[#ff3d55]/20 bg-[#ff3d55]/[.07] p-4 text-sm text-[#b32139]">{params.error}</div>}
           {params.message && <div role="status" className="mb-5 border border-emerald-600/20 bg-emerald-600/[.06] p-4 text-sm text-emerald-800">{params.message}</div>}
 
