@@ -29,13 +29,15 @@ export async function POST() {
   try { accessToken = decryptToken(account.access_token_encrypted) }
   catch { return NextResponse.json({ error: 'The stored TikTok connection cannot be opened. Please reconnect TikTok.' }, { status: 500 }) }
 
-  const profileRes = await tiktokFetch('/user/info/?fields=open_id,display_name,avatar_url,follower_count', accessToken)
+  // Keep this request inside the basic scope we ask for by default. Additional
+  // profile/stat fields should only be requested after TikTok approves those scopes.
+  const profileRes = await tiktokFetch('/user/info/?fields=open_id,display_name,avatar_url', accessToken)
   const profileJson = await profileRes.json()
   if (!profileRes.ok || profileJson?.error?.code) return NextResponse.json({ error: 'TikTok did not return your profile. Reconnect TikTok and try again.' }, { status: 502 })
   const profile = profileJson?.data?.user
 
   if (profile) {
-    const { error } = await supabase.from('creator_profiles').upsert({ user_id: user.id, display_name: profile.display_name ?? account.display_name ?? null, follower_count: typeof profile.follower_count === 'number' ? profile.follower_count : null, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
+    const { error } = await supabase.from('creator_profiles').upsert({ user_id: user.id, display_name: profile.display_name ?? account.display_name ?? null, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
     if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   }
 
@@ -73,5 +75,5 @@ export async function POST() {
 
   const syncedAt = new Date().toISOString()
   await supabase.from('tiktok_accounts').update({ last_synced_at: syncedAt, updated_at: syncedAt }).eq('user_id', user.id)
-  return NextResponse.json({ ok: true, synced: videos.length, profile: { display_name: profile?.display_name ?? account.display_name ?? null, follower_count: profile?.follower_count ?? null }, synced_at: syncedAt })
+  return NextResponse.json({ ok: true, synced: videos.length, profile: { display_name: profile?.display_name ?? account.display_name ?? null }, synced_at: syncedAt })
 }
