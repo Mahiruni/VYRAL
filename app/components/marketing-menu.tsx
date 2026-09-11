@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { ArrowUpRight, BarChart3, LayoutDashboard, Sparkles, Users, X, Zap } from 'lucide-react'
 
 const links = [
@@ -11,6 +12,7 @@ const links = [
 ] as const
 
 export function MarketingMenu() {
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -23,6 +25,8 @@ export function MarketingMenu() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
+
+  if (pathname !== '/') return null
 
   return <>
     <button
