@@ -6,7 +6,7 @@ export function PageLoader() {
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(false), 520)
+    const timer = window.setTimeout(() => setVisible(false), 560)
     return () => window.clearTimeout(timer)
   }, [])
 
@@ -14,7 +14,10 @@ export function PageLoader() {
 
   return (
     <div className="vyral-loader" aria-hidden="true">
-      <div className="vyral-loader-mark">V</div>
+      <div className="vyral-loader-logo">
+        <span className="vyral-loader-logo-mark">V</span>
+        <span className="vyral-loader-logo-word">VYRAL</span>
+      </div>
     </div>
   )
 }
