@@ -13,7 +13,7 @@ function isProtected(pathname: string) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  if (PUBLIC_PATHS.has(pathname) || pathname.startsWith('/_next/') || pathname.includes('.')) return NextResponse.next()
+  if (pathname.startsWith('/_next/') || pathname.includes('.')) return NextResponse.next()
 
   const response = NextResponse.next({ request })
   const supabase = createServerClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
@@ -27,8 +27,10 @@ export async function middleware(request: NextRequest) {
       },
     },
   })
-
   const { data: { user } } = await supabase.auth.getUser()
+
+  if (pathname === '/login' && user) return NextResponse.redirect(new URL('/app', request.url))
+  if (PUBLIC_PATHS.has(pathname)) return response
 
   if (isProtected(pathname) && !user) {
     const loginUrl = new URL('/login', request.url)
@@ -36,11 +38,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  if (pathname.startsWith('/api/') && !user && pathname !== '/api/tiktok/callback') {
+  if (pathname.startsWith('/api/') && !user) {
     return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
   }
 
-  if (pathname === '/login' && user) return NextResponse.redirect(new URL('/app', request.url))
   return response
 }
 
