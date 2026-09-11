@@ -1,6 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = { title: 'VYRAL — Engineer the opportunity', description: 'AI growth co-pilot for TikTok creators.' };
+export const metadata: Metadata = {
+  title: 'VYRAL — Make your next move count.',
+  description: 'VYRAL is a creator growth system for finding signals, building sharper short-form videos, and learning from performance.',
+};
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body>{children}</body></html>; }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body>{children}</body></html>;
+}
